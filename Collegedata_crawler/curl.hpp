@@ -69,6 +69,7 @@ namespace curl{
     } //move
     
     std::unique_ptr<std::string> get(const std::string& url, const std::string& cookie);
+    
     inline std::unique_ptr<std::string> get(){
       return get(URL,COOKIE);
     }
@@ -84,7 +85,7 @@ namespace curl{
       COOKIE = cookie;
     }//change cookie
     
-    std::unique_ptr<std::string> post(const std::string& url, const std::string& cookie, const std::string& post);
+    std::unique_ptr<std::string> post(const std::string& post);
     
     inline ~Curl(){
       curl_easy_cleanup(handle);
