@@ -10,22 +10,26 @@
 #define curl_hpp
 
 #include <stdio.h>
-#include <curl/curl.h>
+
 #include <string>
 #include <memory>
 namespace curl{
+  
+  namespace raw{
+    #include <curl/curl.h>
+  }
   inline void init(){
-    curl_global_init(CURL_GLOBAL_ALL);
+    raw::curl_global_init(CURL_GLOBAL_ALL);
   }//global initialization
   
   inline void cleanup(){
-    curl_global_cleanup();
+    raw::curl_global_cleanup();
     return;
   }//global cleanup
   
   class Curl{
   private:
-    CURL* handle;
+    raw::CURL* handle;
     std::string URL;
     std::string COOKIE;
 
@@ -88,7 +92,7 @@ namespace curl{
     std::unique_ptr<std::string> post(const std::string& post);
     
     inline ~Curl(){
-      curl_easy_cleanup(handle);
+      raw::curl_easy_cleanup(handle);
     }//destructor
   };//wrapper class for Curl
 }

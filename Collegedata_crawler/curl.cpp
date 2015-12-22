@@ -16,7 +16,7 @@ size_t curl_writer(char *data, size_t size, size_t nmemb, std::string *writerDat
 } //curl writer for data buffer
 
 namespace curl{
-
+  using namespace raw;
   Curl::Curl(){
     handle = curl_easy_init();
     if(!handle) goto errors;

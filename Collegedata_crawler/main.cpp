@@ -14,4 +14,5 @@ int main(int argc, const char * argv[]) {
   curl::Curl baidu("www.google.com");
   auto buffer = baidu.get();
   std::cout<<*buffer<<std::endl;
+  curl::cleanup();
 }
