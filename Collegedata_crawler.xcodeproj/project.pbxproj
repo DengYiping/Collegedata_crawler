@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D29154D31C28C38E00B4AA88 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29154D21C28C38E00B4AA88 /* main.cpp */; };
 		D29154DA1C28C39C00B4AA88 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = D29154D91C28C39C00B4AA88 /* README.md */; };
+		D29154DC1C28C4CE00B4AA88 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D29154DB1C28C4CE00B4AA88 /* libcurl.tbd */; };
+		D29154DF1C28F23E00B4AA88 /* curl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D29154DD1C28F23E00B4AA88 /* curl.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,9 @@
 		D29154CF1C28C38E00B4AA88 /* Collegedata_crawler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Collegedata_crawler; sourceTree = BUILT_PRODUCTS_DIR; };
 		D29154D21C28C38E00B4AA88 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D29154D91C28C39C00B4AA88 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D29154DB1C28C4CE00B4AA88 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
+		D29154DD1C28F23E00B4AA88 /* curl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = curl.cpp; sourceTree = "<group>"; };
+		D29154DE1C28F23E00B4AA88 /* curl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = curl.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D29154DC1C28C4CE00B4AA88 /* libcurl.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +49,7 @@
 		D29154C61C28C38E00B4AA88 = {
 			isa = PBXGroup;
 			children = (
+				D29154DB1C28C4CE00B4AA88 /* libcurl.tbd */,
 				D29154D91C28C39C00B4AA88 /* README.md */,
 				D29154D11C28C38E00B4AA88 /* Collegedata_crawler */,
 				D29154D01C28C38E00B4AA88 /* Products */,
@@ -61,6 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				D29154D21C28C38E00B4AA88 /* main.cpp */,
+				D29154DD1C28F23E00B4AA88 /* curl.cpp */,
+				D29154DE1C28F23E00B4AA88 /* curl.hpp */,
 			);
 			path = Collegedata_crawler;
 			sourceTree = "<group>";
@@ -123,6 +132,7 @@
 			files = (
 				D29154DA1C28C39C00B4AA88 /* README.md in Sources */,
 				D29154D31C28C38E00B4AA88 /* main.cpp in Sources */,
+				D29154DF1C28F23E00B4AA88 /* curl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +221,14 @@
 		D29154D71C28C38E00B4AA88 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-lboost_thread-mt",
+					"-lboost_regex",
+					"-lboost_system",
+					"-lmongoclient",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -218,6 +236,14 @@
 		D29154D81C28C38E00B4AA88 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-lboost_thread-mt",
+					"-lboost_regex",
+					"-lboost_system",
+					"-lmongoclient",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -241,6 +267,7 @@
 				D29154D81C28C38E00B4AA88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

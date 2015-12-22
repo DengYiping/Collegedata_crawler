@@ -7,9 +7,11 @@
 //
 
 #include <iostream>
-
+#include <boost/regex.hpp>
+#include "curl.hpp"
 int main(int argc, const char * argv[]) {
-  // insert code here...
-  std::cout << "Hello, World!\n";
-    return 0;
+  curl::init();
+  curl::Curl baidu("www.google.com");
+  auto buffer = baidu.get();
+  std::cout<<*buffer<<std::endl;
 }
