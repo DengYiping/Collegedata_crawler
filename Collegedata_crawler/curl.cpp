@@ -7,17 +7,22 @@
 //
 
 #include "curl.hpp"
-size_t curl_writer(char *data, size_t size, size_t nmemb, std::string *writerData)
-{
-  auto realsize = size * nmemb;
-  if (realsize <= 0) return 0;
-  writerData->append(data);
-  return realsize;
-} //curl writer for data buffer
+
 
 namespace curl{
   using namespace raw;
-  Curl::Curl(){
+  
+  static size_t curl_writer(char *data, size_t size, size_t nmemb, std::string *writerData)
+  {
+    auto realsize = size * nmemb;
+    if (realsize <= 0) return 0;
+    writerData->append(data);
+    return realsize;
+  } //curl writer for data buffer
+  
+  Curl::Curl(const std::string& url, const std::string& cookie){
+    URL = url;
+    COOKIE = cookie;
     handle = curl_easy_init();
     if(!handle) goto errors;
     
@@ -42,7 +47,7 @@ namespace curl{
   errors:
     fprintf(stderr, "error in initialize curl\n");
     return;
-  }
+  }//Curl::Curl
   
   
   std::unique_ptr<std::string> Curl::get(const std::string& url, const std::string& cookie){
@@ -68,5 +73,17 @@ namespace curl{
     std::unique_ptr<std::string> error_ptr(new std::string);
     fprintf(stderr, "error in perform curl\n");
     return error_ptr;
+  }//Curl::get
+  
+  std::unique_ptr<std::string> Curl::post(const std::string &post){
+    CURLcode code = CURLE_OK;
+    code = curl_easy_setopt(handle, CURLOPT_POST, 1);
+    code = curl_easy_setopt(handle, CURLOPT_POSTFIELDS, post.c_str());
+    if(code != CURLE_OK){
+      fprintf(stderr, "error in set post data\n");
+      return std::unique_ptr<std::string>();
+    }
+    else
+      return get();
   }
 }

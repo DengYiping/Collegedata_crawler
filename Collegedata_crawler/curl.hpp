@@ -34,24 +34,15 @@ namespace curl{
     std::string COOKIE;
 
   public:
-    Curl();//default setup
     
-    inline Curl(const std::string& url, const std::string& cookie){
-      *this = Curl();
-      URL = url;
-      COOKIE = cookie;
+    Curl(const std::string& url, const std::string& cookie);//initialized setup
+    
+    inline Curl(const std::string& url):Curl(url,""){
     }//initialized setup
     
-    inline Curl(const std::string& url){
-      *this = Curl();
-      URL = url;
-      COOKIE = "";
-    }//initialized setup
+    Curl(): Curl("","") {}//default setup
     
-    inline Curl(const Curl& right){
-      *this = Curl();
-      URL = right.URL;
-      COOKIE = right.COOKIE;
+    inline Curl(const Curl& right): Curl(right.URL,right.COOKIE){
     } //copy constructor
     
     inline Curl(Curl&& right): URL(right.URL), COOKIE(right.COOKIE), handle(right.handle){
@@ -72,6 +63,8 @@ namespace curl{
       
     } //move
     
+    ///get method
+    ///
     std::unique_ptr<std::string> get(const std::string& url, const std::string& cookie);
     
     inline std::unique_ptr<std::string> get(){
@@ -80,7 +73,11 @@ namespace curl{
     inline std::unique_ptr<std::string> get(const std::string& url){
       return get(url,COOKIE);
     }
-    
+    ///post method
+    ///
+    std::unique_ptr<std::string> post(const std::string& post);
+    ///set method
+    ///set
     inline void set_url(const std::string& url){
       URL = url;
     }//change url
@@ -88,8 +85,6 @@ namespace curl{
     inline void set_cookie(const std::string& cookie){
       COOKIE = cookie;
     }//change cookie
-    
-    std::unique_ptr<std::string> post(const std::string& post);
     
     inline ~Curl(){
       raw::curl_easy_cleanup(handle);
